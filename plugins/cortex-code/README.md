@@ -8,7 +8,7 @@ Route Snowflake work from Claude Code or OpenAI Codex to Cortex Code automatical
 
 ### Auto-routing (default)
 
-A lightweight keyword filter (`prompt_filter.py`) runs on every prompt. When it detects Snowflake-related patterns, it loads the `cortex-router` skill which delegates to Cortex Code.
+A lightweight keyword filter (`prompt_filter.py`) runs on every prompt. When it detects Snowflake-related patterns, it loads the `cortex-router` skill which delegates to Cortex Code. In Claude Code the skill runs in a forked Haiku subagent, so the routing check and Cortex's output stay out of the main session's context, and it uses the RO envelope unless the request is tagged as a change.
 
 Examples that auto-route:
 - "Show me my Snowflake warehouses"

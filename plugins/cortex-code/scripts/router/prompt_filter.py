@@ -221,14 +221,12 @@ def _claude_code_routing_instruction() -> str:
     """Routing instruction for Claude Code — uses Skill tool."""
     return (
         "[CORTEX ROUTER] This prompt may need Cortex Code CLI. "
-        "Load the snowflake-cortex-code:cortex-router skill using the Skill tool, "
-        "then follow ALL steps IN ORDER — do NOT skip any steps. "
-        "Step 1: verify cortex CLI is installed. "
-        "Step 2: run route_request.py to check if this should go to Cortex or stay in Claude Code. "
-        "Step 3: ONLY if Step 2 says route=cortex, execute via execute_cortex.py. "
-        "If this prompt is a follow-up to a previous Cortex turn "
-        "(continue/keep going/drill in/also/fix that), pass --resume-last "
-        "to execute_cortex.py so Cortex sees prior context. "
+        "Call the Skill tool with skill snowflake-cortex-code:cortex-router and args set to the user's prompt. "
+        "Prefix the args with [RW] if the user asked for a change (CREATE, ALTER, DROP, INSERT, UPDATE, DELETE), "
+        "[resume] if it continues the previous Cortex turn (continue/keep going/drill in/also/fix that), "
+        "and [connection=NAME] if the user named a Snowflake connection. "
+        "The skill runs in a subagent and returns Cortex's result, or 'route: claude', "
+        "in which case handle the request yourself. "
         "Do NOT load snowflake-cortex-code:cortex-run (that is for explicit $cortex-run invocation only)."
     )
 
